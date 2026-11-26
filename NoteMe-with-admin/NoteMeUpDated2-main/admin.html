@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#211a35">
+  <title>Admin | NoteMe</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Lexend:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="admin.css">
+</head>
+<body>
+
+  <div class="gate" id="gate">Checking admin access…</div>
+
+  <div class="shell" id="shell" hidden>
+
+    <aside class="sidebar" id="sidebar">
+      <a href="index.html" class="brand">NoteMe<span>.</span> <em>admin</em></a>
+      <nav>
+        <a href="#overview" data-view="overview" class="active"><i>◈</i> Overview</a>
+        <a href="#orders" data-view="orders"><i>❒</i> Orders <b class="badge" id="navPending" hidden>0</b></a>
+        <a href="#customers" data-view="customers"><i>☺</i> Customers</a>
+        <a href="#products" data-view="products"><i>✦</i> Products</a>
+      </nav>
+      <div class="side-foot">
+        <div class="who" id="adminWho"></div>
+        <a href="index.html" class="link">View store ↗</a>
+        <button type="button" id="logoutBtn" class="link">Log out</button>
+      </div>
+    </aside>
+
+    <div class="main">
+      <header class="topbar">
+        <button type="button" class="burger" id="burger" aria-label="Toggle menu">☰</button>
+        <h1 id="viewTitle">Overview</h1>
+        <button type="button" class="ghost" id="refreshBtn">↻ Refresh</button>
+      </header>
+
+      <!-- OVERVIEW -->
+      <section class="view" id="view-overview">
+        <div class="kpis" id="kpis"></div>
+
+        <div class="grid two">
+          <div class="card">
+            <div class="card-head"><h2>Orders, last 14 days</h2><span class="muted" id="trendTotal"></span></div>
+            <div id="trend" class="trend"></div>
+          </div>
+          <div class="card">
+            <div class="card-head"><h2>Status breakdown</h2></div>
+            <div id="statusBars"></div>
+            <div class="card-head sub"><h2>Order type</h2></div>
+            <div id="typeBars"></div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-head"><h2>Needs your attention</h2><a href="#orders" class="link" data-go="pending">View all pending →</a></div>
+          <div id="attention"></div>
+        </div>
+      </section>
+
+      <!-- ORDERS -->
+      <section class="view" id="view-orders" hidden>
+        <div class="toolbar">
+          <div class="tabs" id="statusTabs">
+            <button data-status="all" class="active">All <span></span></button>
+            <button data-status="pending">Pending <span></span></button>
+            <button data-status="progress">In progress <span></span></button>
+            <button data-status="delivered">Delivered <span></span></button>
+          </div>
+          <select id="typeFilter" aria-label="Filter by type">
+            <option value="all">All types</option>
+            <option value="template">Ready-made</option>
+            <option value="customization">Customization</option>
+          </select>
+          <input type="search" id="orderSearch" placeholder="Search ID, customer, item…" aria-label="Search orders">
+          <button type="button" class="ghost" id="exportBtn">⇩ Export CSV</button>
+        </div>
+        <div class="card flush"><div class="table-wrap" id="ordersTable"></div></div>
+      </section>
+
+      <!-- CUSTOMERS -->
+      <section class="view" id="view-customers" hidden>
+        <div class="toolbar">
+          <input type="search" id="userSearch" placeholder="Search name, username, email…" aria-label="Search customers">
+        </div>
+        <div class="card flush"><div class="table-wrap" id="usersTable"></div></div>
+      </section>
+
+      <!-- PRODUCTS -->
+      <section class="view" id="view-products" hidden>
+        <div class="card flush"><div class="table-wrap" id="productsTable"></div></div>
+        <p class="note">Based on ready-made product orders. Revenue counts delivered orders only.</p>
+      </section>
+    </div>
+  </div>
+
+  <!-- ORDER DRAWER -->
+  <div class="scrim" id="scrim" hidden></div>
+  <aside class="drawer" id="drawer" hidden aria-label="Order details"></aside>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script src="admin.js"></script>
+</body>
+</html>
